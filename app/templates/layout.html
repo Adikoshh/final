@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../static/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/afca038480.js" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <link href="../static/css/headers.css" rel="stylesheet">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='../static/img/hh.ico') }}">
+  {% if title %}
+  <title>Head Hunter - {{ title }}</title>
+  {% else %}
+  <title>Head Hunter</title>
+  {% endif %}
+</head>
+
+<body>
+  <header class="p-3 text-bg-dark">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+          <img src="{{url_for('static', filename='img/logo.svg')}}" alt="">
+        </a>
+
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="{{url_for('home')}}" class="nav-link px-20 text-white">Home</a></li>
+          <li><a href="{{url_for('resume')}}" class="nav-link px-20 text-white">Resume</a></li>
+          <li><a href="{{url_for('jobs')}}" class="nav-link px-20 text-white">Jobs</a></li>
+          <li><a href="https://feedback.hh.ru/kz/knowledge-base?utm_source=hh.kz&utm_medium=referral&utm_campaign=from_header_new" class="nav-link px-20 text-white">FAQs</a></li>
+          <li><a href="{{url_for('about')}}" class="nav-link px-20 text-white">About</a></li>
+        </ul>
+
+        <!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+          <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..."
+            aria-label="Search">
+        </form> -->
+
+        <div class="text-end">
+          {% if current_user.is_authenticated %}
+          <button type="button" class="btn btn-primary me-2"><a class="link-light"
+              href="{{url_for('account')}}">Account</a></button>
+          <button type="button" class="btn btn-primary me-2"><a class="link-light"
+              href="{{url_for('logout')}}">Logout</a></button>
+          {% else%}
+          <button type="button" class="btn btn-primary me-2"><a class="link-light"
+              href="{{url_for('sign_in')}}">Login</a></button>
+          <button type="button" class="btn btn-primary me-2"><a class="link-light"
+              href="{{url_for('sign_up')}}">Sign-up</a></button>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </header>
+  <main role="main" class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <br>
+        {% with messages = get_flashed_messages(with_categories = true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+          {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        {% block content %}
+        
+        {% endblock %}
+      </div>
+    </div>
+  </main>
+  <div class="container">
+    <footer class="py-3 my-4">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="{{url_for('home')}}" class="nav-link px-2 text-muted">Home</a></li>
+        <li class="nav-item"><a href="{{url_for('resume')}}" class="nav-link px-2 text-muted">Resume</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Jobs</a></li>
+        <li class="nav-item"><a href="https://feedback.hh.ru/kz/knowledge-base?utm_source=hh.kz&utm_medium=referral&utm_campaign=from_header_new" class="nav-link px-2 text-muted">FAQs</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+      </ul>
+      <p class="text-center text-muted">&copy; 2022 Company, Inc</p>
+    </footer>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
+    integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

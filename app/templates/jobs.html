@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="container py-6 h-100">
+   <div class="row d-flex justify-content-start">
+      {% for job in jobs %}
+      <div class="col-md-12 col-xl-3">
+         <div class="card mt-3 mb-2" style="width: 18rem; height: 15rem; border-radius: 15px;">
+            <div class="card-body">
+               <h5 class="card-title">{{ job.job_title }}  </h5>
+               <h6 class="location mb-2 text-muted"> {{ job.job_location }}</h6>
+               <p class="date">{{ job.posted_date}}</p>
+               <h5 class="company_name">{{ job.company_name }}</h5>
+               <button class="btn btn-primary">
+                  <a href="{{ job.job_url }}" class="card-link" style="text-decoration: none; color: white">More</a>
+               </button>
+            </div>
+         </div>
+      </div>
+      {% endfor %}
+   </div>
+</div>
+{% endblock %}
